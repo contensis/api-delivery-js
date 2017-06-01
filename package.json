@@ -1,0 +1,19 @@
+{
+  "name": "api-delivery-js",
+  "version": "1.0.0",
+  "description": "Contensis Javascript Delivery API",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/contensis/api-delivery-js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/contensis/api-delivery-js/issues"
+  },
+  "homepage": "https://github.com/contensis/api-delivery-js#readme"
+}
