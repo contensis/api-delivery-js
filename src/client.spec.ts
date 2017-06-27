@@ -3,7 +3,7 @@ import { ClientConfig } from './client-config';
 
 const Zengenti = { Contensis };
 
-const global: any = window || this;
+const global = window || this;
 
 describe('Contensis Client', function () {
 

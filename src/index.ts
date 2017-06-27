@@ -1,2 +1,2 @@
-export {Query, Op, OrderBy} from './Query';
+export {Query, Op, OrderBy} from './query';
 export {Client} from './client';

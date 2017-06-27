@@ -13,7 +13,7 @@
         "suppressImplicitAnyIndexErrors": true,
         "allowSyntheticDefaultImports": true,
         "importHelpers": true,
-		"outDir": "./bundle-es2015",
+		"outDir": "../bundle-es2015",
 		"declaration": true
     }
 }

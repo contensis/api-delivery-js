@@ -2,7 +2,7 @@ import * as Contensis from './index';
 
 const Zengenti = { Contensis };
 
-const global: any = window || this;
+const global = window || this;
 
 describe('Content Type Operations', function () {
 

@@ -26,7 +26,7 @@ export interface ILogicalExpression extends IExpression {
 	count(): number;
 }
 
-interface VersionInfo {
+export interface VersionInfo {
 	createdBy: string;
 	created: string;
 	modifiedBy: string;
@@ -36,7 +36,7 @@ interface VersionInfo {
 	versionNo: string;
 }
 
-interface EntrySys {
+export interface EntrySys {
 	id: string;
 	uri: string;
 	projectId: string;
@@ -54,13 +54,13 @@ export interface Entry {
 	[key: string]: any;
 }
 
-interface Editor {
+export interface Editor {
 	id: string;
 	instructions: { [key: string]: string };
 	properties: { [key: string]: any };
 }
 
-interface Field {
+export interface Field {
 	id: string;
 	name: { [key: string]: string };
 	description: { [key: string]: string };
@@ -118,7 +118,7 @@ export interface EntryListOptions {
 	fields?: string[];
 }
 
-interface TaxonomyGetOptions {
+export interface TaxonomyGetOptions {
 	order?: 'alphabetical' | 'defined';
 	childDepth?: number;
 	language?: string;

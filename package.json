@@ -4,8 +4,11 @@
   "description": "Contensis Javascript Delivery API",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "tsc:esnext": "./node_modules/.bin/tsc -p tsconfig-esnext.json"
+    "test": "concurrently \"karma start\" \"npm run test:pack\" ",
+    "test:pack": "webpack --config webpack.test.config.js --progress --colors --watch",
+    "tsc:es5": "./node_modules/.bin/tsc -p src",
+    "tsc:esnext": "./node_modules/.bin/tsc -p src/tsconfig-esnext.json",
+    "prod:pack": "webpack --progress --colors"
   },
   "repository": {
     "type": "git",
@@ -18,9 +21,20 @@
   },
   "homepage": "https://github.com/contensis/api-delivery-js#readme",
   "devDependencies": {
-    "typescript": "^2.3.4"
+    "concurrently": "^3.5.0",
+    "jasmine-core": "^2.6.4",
+    "karma": "^1.7.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-webpack": "^2.0.3",
+    "ts-loader": "^2.2.0",
+    "typescript": "^2.3.4",
+    "webpack": "^3.0.0"
   },
   "dependencies": {
-    "@types/jasmine": "^2.5.53"
+    "@types/jasmine": "^2.5.53",
+    "tslib": "^1.7.1"
   }
 }
