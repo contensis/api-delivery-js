@@ -34,7 +34,7 @@ describe('Link Resolver', function () {
 				sys: { id: 99, language: 'en-GB' }
 			}
 		};
-		
+
 		client.entries.resolve(testEntry);
 
 		expect(global.fetch).toHaveBeenCalled();

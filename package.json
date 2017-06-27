@@ -8,6 +8,7 @@
     "test:pack": "webpack --config webpack.test.config.js --progress --colors --watch",
     "tsc:es5": "./node_modules/.bin/tsc -p src",
     "tsc:esnext": "./node_modules/.bin/tsc -p src/tsconfig-esnext.json",
+	"lint": "./node_modules/.bin/tslint \"src/**/*.ts",	
     "prod:pack": "webpack --progress --colors"
   },
   "repository": {
@@ -29,6 +30,8 @@
     "karma-jasmine": "^1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-webpack": "^2.0.3",
+	"tslint": "^5.4.3",
+    "tslint-stylish": "^2.1.0",
     "ts-loader": "^2.2.0",
     "typescript": "^2.3.4",
     "webpack": "^3.0.0"
