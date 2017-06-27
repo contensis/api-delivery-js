@@ -1,58 +1,61 @@
+import { ExpressionValueType, OperatorType, IExpression, ContensisQuery, ContensisQueryOperators, ILogicalExpression, ContensisQueryOrderBy, ContensisQueryOrderByDto } from './interfaces';
 import './polyfills';
+
 const ExpressionValueTypeEnum = {
-    Single: 'single',
-    Array: 'array',
-    Unknown: 'unknown'
+    Single: 'single' as ExpressionValueType,
+    Array: 'array' as ExpressionValueType,
+    Unknown: 'unknown' as ExpressionValueType
 };
+
 const OperatorTypeEnum = {
-    And: 'and',
-    Between: 'between',
-    Contains: 'contains',
-    EndsWith: 'endsWith',
-    EqualTo: 'equalTo',
-    Exists: 'exists',
-    FreeText: 'freeText',
-    GreaterThan: 'greaterThan',
-    GreaterThanOrEqualTo: 'greaterThanOrEqualTo',
-    In: 'in',
-    LessThan: 'lessThan',
-    LessThanOrEqualTo: 'lessThanOrEqualTo',
-    Not: 'not',
-    Or: 'or',
-    StartsWith: 'startsWith',
-    Where: 'where'
+    And: 'and' as OperatorType,
+    Between: 'between' as OperatorType,
+    Contains: 'contains' as OperatorType,
+    EndsWith: 'endsWith' as OperatorType,
+    EqualTo: 'equalTo' as OperatorType,
+    Exists: 'exists' as OperatorType,
+    FreeText: 'freeText' as OperatorType,
+    GreaterThan: 'greaterThan' as OperatorType,
+    GreaterThanOrEqualTo: 'greaterThanOrEqualTo' as OperatorType,
+    In: 'in' as OperatorType,
+    LessThan: 'lessThan' as OperatorType,
+    LessThanOrEqualTo: 'lessThanOrEqualTo' as OperatorType,
+    Not: 'not' as OperatorType,
+    Or: 'or' as OperatorType,
+    StartsWith: 'startsWith' as OperatorType,
+    Where: 'where' as OperatorType
 };
-export class ExpressionBase {
-    constructor(fieldName, values = [], operatorName, valueType) {
-        this.fieldName = fieldName;
-        this.values = values;
-        this.operatorName = operatorName;
-        this.valueType = valueType;
-        this._weight = 0;
+
+export abstract class ExpressionBase implements IExpression {
+
+    private _weight: number = 0;
+
+    constructor(public fieldName: string, public values: any[] = [],
+        public operatorName: OperatorType, public valueType: ExpressionValueType) {
     }
-    addValue(value) {
+
+    addValue(value: any): ExpressionBase {
         this.values[this.values.length] = value;
         return this;
     }
-    weight(weight) {
+
+    weight(weight: number): ExpressionBase {
         this._weight = weight;
         return this;
     }
-    toJSON() {
-        let result = {};
+
+    toJSON(): any {
+        let result: any = {};
         if (this.fieldName) {
             result.field = this.fieldName;
         }
         if (this.valueType === ExpressionValueTypeEnum.Single) {
             result[this.operatorName] = this.values[0];
-        }
-        else if (this.valueType === ExpressionValueTypeEnum.Array) {
+        } else if (this.valueType === ExpressionValueTypeEnum.Array) {
             result[this.operatorName] = this.values;
-        }
-        else if (this.values && (this.values.length === 1)) {
+        } else if (this.values && (this.values.length === 1)) {
             result[this.operatorName] = this.values[0];
-        }
-        else {
+        } else {
             result[this.operatorName] = this.values;
         }
         if (this._weight && (this._weight > 1)) {
@@ -61,33 +64,41 @@ export class ExpressionBase {
         return result;
     }
 }
-export class LogicalExpression extends ExpressionBase {
-    constructor(values = [], operatorName, valueType) {
+
+export abstract class LogicalExpression extends ExpressionBase implements ILogicalExpression {
+    constructor(values: any[] = [], operatorName: OperatorType, valueType: ExpressionValueType) {
         super(null, values, operatorName, ExpressionValueTypeEnum.Array);
     }
-    getItem(index) {
+
+    getItem(index: number): IExpression {
         return this.values[index];
     }
-    setItem(index, item) {
+
+    setItem(index: number, item: IExpression): WhereExpression {
         this.values[index] = item;
         return this;
     }
-    add(item) {
+
+    add(item: IExpression): WhereExpression {
         this.values[this.values.length] = item;
         return this;
     }
-    addRange(items) {
+
+    addRange(items: IExpression[]): WhereExpression {
         Array.prototype.push.apply(this.values, items);
         return this;
     }
-    indexOf(item) {
+
+    indexOf(item: IExpression): number {
         return this.values.indexOf(item);
     }
-    insert(index, item) {
+
+    insert(index: number, item: IExpression): WhereExpression {
         this.values.splice(index, 0, item);
         return this;
     }
-    remove(item) {
+
+    remove(item: IExpression): boolean {
         let index = this.indexOf(item);
         if (index >= 0) {
             this.removeAt(index);
@@ -95,179 +106,223 @@ export class LogicalExpression extends ExpressionBase {
         }
         return false;
     }
-    removeAt(index) {
+
+    removeAt(index: number): WhereExpression {
         this.values.splice(index, 1);
         return this;
     }
-    clear() {
+
+    clear(): WhereExpression {
         this.values.length = 0;
         return this;
     }
-    contains(item) {
+
+    contains(item: IExpression): boolean {
         return (this.indexOf(item) >= 0);
     }
-    count() {
+
+    count(): number {
         return this.values.length;
     }
+
 }
+
 class AndExpression extends LogicalExpression {
-    constructor(values) {
+    constructor(values: IExpression[]) {
         super(values, OperatorTypeEnum.And, ExpressionValueTypeEnum.Array);
     }
 }
+
 class BetweenExpression extends ExpressionBase {
-    constructor(fieldName, minimum, maximum) {
+    constructor(fieldName: string, minimum: any, maximum: any) {
         super(fieldName, [minimum, maximum], OperatorTypeEnum.Between, ExpressionValueTypeEnum.Array);
     }
 }
+
 class NotExpression extends LogicalExpression {
-    constructor(value) {
+    constructor(value: IExpression) {
         super([value], OperatorTypeEnum.Not, ExpressionValueTypeEnum.Single);
     }
 }
+
 class OrExpression extends LogicalExpression {
-    constructor(values) {
+    constructor(values: IExpression[]) {
         super(values, OperatorTypeEnum.Or, ExpressionValueTypeEnum.Array);
     }
 }
+
 class ContainsExpression extends ExpressionBase {
-    constructor(fieldName, value) {
+    constructor(fieldName: string, value: any) {
         super(fieldName, [value], OperatorTypeEnum.Contains, ExpressionValueTypeEnum.Single);
     }
 }
+
 class EndsWithExpression extends ExpressionBase {
-    constructor(fieldName, value) {
+    constructor(fieldName: string, value: any) {
         super(fieldName, [value], OperatorTypeEnum.EndsWith, ExpressionValueTypeEnum.Single);
     }
 }
+
 class EqualToExpression extends ExpressionBase {
-    constructor(fieldName, value) {
+    constructor(fieldName: string, value: any) {
         super(fieldName, [value], OperatorTypeEnum.EqualTo, ExpressionValueTypeEnum.Single);
     }
 }
+
 class ExistsExpression extends ExpressionBase {
-    constructor(fieldName, value) {
+    constructor(fieldName: string, value: any) {
         super(fieldName, [value], OperatorTypeEnum.Exists, ExpressionValueTypeEnum.Single);
     }
 }
+
 class FreeTextExpression extends ExpressionBase {
-    constructor(fieldName, value) {
+    constructor(fieldName: string, value: any) {
         super(fieldName, [value], OperatorTypeEnum.FreeText, ExpressionValueTypeEnum.Single);
     }
 }
+
 class GreaterThanExpression extends ExpressionBase {
-    constructor(fieldName, value) {
+    constructor(fieldName: string, value: any) {
         super(fieldName, [value], OperatorTypeEnum.GreaterThan, ExpressionValueTypeEnum.Single);
     }
 }
+
 class GreaterThanOrEqualToExpression extends ExpressionBase {
-    constructor(fieldName, value) {
+    constructor(fieldName: string, value: any) {
         super(fieldName, [value], OperatorTypeEnum.GreaterThanOrEqualTo, ExpressionValueTypeEnum.Single);
     }
 }
+
 class LessThanExpression extends ExpressionBase {
-    constructor(fieldName, value) {
+    constructor(fieldName: string, value: any) {
         super(fieldName, [value], OperatorTypeEnum.LessThan, ExpressionValueTypeEnum.Single);
     }
 }
+
 class InExpression extends ExpressionBase {
-    constructor(fieldName, values) {
+    constructor(fieldName: string, values: any[]) {
         super(fieldName, values, OperatorTypeEnum.In, ExpressionValueTypeEnum.Array);
     }
 }
+
 class LessThanOrEqualToExpression extends ExpressionBase {
-    constructor(fieldName, value) {
+    constructor(fieldName: string, value: any) {
         super(fieldName, [value], OperatorTypeEnum.LessThanOrEqualTo, ExpressionValueTypeEnum.Single);
     }
 }
+
 class StartsWithExpression extends ExpressionBase {
-    constructor(fieldName, value) {
+    constructor(fieldName: string, value: any) {
         super(fieldName, [value], OperatorTypeEnum.StartsWith, ExpressionValueTypeEnum.Single);
     }
 }
+
 export class WhereExpression extends LogicalExpression {
-    constructor(values = []) {
+    constructor(values: IExpression[] = []) {
         super(values, OperatorTypeEnum.Where, ExpressionValueTypeEnum.Array);
     }
+
     toJSON() {
         let result = super.toJSON();
         return result[OperatorTypeEnum.Where];
     }
 }
-export class Operators {
-    and(...values) {
+
+export class Operators implements ContensisQueryOperators {
+    and(...values: IExpression[]): ILogicalExpression {
         return new AndExpression(values);
     }
-    between(name, minimum, maximum) {
+
+    between(name: string, minimum: any, maximum: any): IExpression {
         return new BetweenExpression(name, minimum, maximum);
     }
-    not(expression) {
+
+    not(expression: IExpression): ILogicalExpression {
         return new NotExpression(expression);
     }
-    or(...values) {
+
+    or(...values: IExpression[]): ILogicalExpression {
         return new OrExpression(values);
     }
-    contains(name, value) {
+
+    contains(name: string, value: string): IExpression {
         return new ContainsExpression(name, value);
     }
-    endsWith(name, value) {
+
+    endsWith(name: string, value: string): IExpression {
         return new EndsWithExpression(name, value);
     }
-    equalTo(name, value) {
+
+    equalTo(name: string, value: any): IExpression {
         return new EqualToExpression(name, value);
     }
-    exists(name, value) {
+
+    exists(name: string, value: boolean): IExpression {
         return new ExistsExpression(name, value);
     }
-    freeText(name, value) {
+
+    freeText(name: string, value: string): IExpression {
         return new FreeTextExpression(name, value);
     }
-    greaterThan(name, value) {
+
+    greaterThan(name: string, value: any): IExpression {
         return new GreaterThanExpression(name, value);
     }
-    greaterThanOrEqualTo(name, value) {
+
+    greaterThanOrEqualTo(name: string, value: any): IExpression {
         return new GreaterThanOrEqualToExpression(name, value);
     }
-    lessThan(name, value) {
+
+    lessThan(name: string, value: any): IExpression {
         return new LessThanExpression(name, value);
     }
-    lessThanOrEqualTo(name, value) {
+
+    lessThanOrEqualTo(name: string, value: any): IExpression {
         return new LessThanOrEqualToExpression(name, value);
     }
-    startsWith(name, value) {
+
+    startsWith(name: string, value: string): IExpression {
         return new StartsWithExpression(name, value);
     }
-    in(name, ...values) {
+
+    in(name: string, ...values: any[]): IExpression {
         return new InExpression(name, values);
     }
 }
-export var Op = new Operators();
-class Ordering {
-    constructor() {
-        this._items = [];
-    }
-    asc(fieldName) {
+
+export const Op = new Operators();
+
+class Ordering implements ContensisQueryOrderBy {
+    private _items: ContensisQueryOrderByDto[] = [];
+
+    asc(fieldName: string): ContensisQueryOrderBy {
         this._items.push({ 'asc': fieldName });
         return this;
     }
-    desc(fieldName) {
+
+    desc(fieldName: string): ContensisQueryOrderBy {
         this._items.push({ 'desc': fieldName });
         return this;
     }
+
     toArray() {
         return this._items;
     }
 }
-class OrderByFactory {
-    asc(fieldName) {
+
+class OrderByFactory implements ContensisQueryOrderBy {
+    asc(fieldName: string): ContensisQueryOrderBy {
         return (new Ordering()).asc(fieldName);
     }
-    desc(fieldName) {
+
+    desc(fieldName: string): ContensisQueryOrderBy {
         return (new Ordering()).desc(fieldName);
     }
 }
-export var OrderBy = new OrderByFactory();
-function toOrderBy(value) {
+
+export const OrderBy: ContensisQueryOrderBy = new OrderByFactory();
+
+function toOrderBy(value: string): ContensisQueryOrderByDto {
     if (!value) {
         return null;
     }
@@ -278,7 +333,8 @@ function toOrderBy(value) {
     }
     return { 'asc': value };
 }
-function serializeOrder(orderBy) {
+
+function serializeOrder(orderBy: string | string[] | ContensisQueryOrderBy): ContensisQueryOrderByDto[] {
     if (!orderBy) {
         return [];
     }
@@ -290,20 +346,23 @@ function serializeOrder(orderBy) {
     if (Array.isArray(orderBy)) {
         return orderBy.map(toOrderBy).filter(o => !!o);
     }
-    return (orderBy.toArray) ? orderBy.toArray() : null;
+    return ((orderBy as Ordering).toArray) ? (orderBy as Ordering).toArray() : null;
 }
-export class Query {
-    constructor(...whereExpressions) {
-        this.where = new WhereExpression();
-        this.orderBy = [];
-        this.pageIndex = 0;
-        this.pageSize = 20;
+
+export class Query implements ContensisQuery {
+    where: WhereExpression = new WhereExpression();
+    orderBy: string | string[] | ContensisQueryOrderBy = [];
+    pageIndex: number = 0;
+    pageSize: number = 20;
+
+    constructor(...whereExpressions: IExpression[]) {
         if (whereExpressions) {
             this.where.addRange(whereExpressions);
         }
     }
+
     toJSON() {
-        let result = {};
+        let result: any = {};
         result.pageIndex = this.pageIndex;
         result.pageSize = this.pageSize;
         result.orderBy = serializeOrder(this.orderBy);
@@ -311,3 +370,4 @@ export class Query {
         return result;
     }
 }
+

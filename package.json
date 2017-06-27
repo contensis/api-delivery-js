@@ -4,7 +4,8 @@
   "description": "Contensis Javascript Delivery API",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc:esnext": "./node_modules/.bin/tsc -p tsconfig-esnext.json"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/contensis/api-delivery-js/issues"
   },
-  "homepage": "https://github.com/contensis/api-delivery-js#readme"
+  "homepage": "https://github.com/contensis/api-delivery-js#readme",
+  "devDependencies": {
+    "typescript": "^2.3.4"
+  },
+  "dependencies": {
+    "@types/jasmine": "^2.5.53"
+  }
 }

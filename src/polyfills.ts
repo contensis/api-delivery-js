@@ -1,5 +1,6 @@
+
 if (!Object.keys) {
-    Object.keys = function (o) {
+    Object.keys = function(o: any) {
         if (!o) {
             return [];
         }
@@ -13,34 +14,38 @@ if (!Object.keys) {
         return result;
     };
 }
+
 if (!Array.isArray) {
-    Array.isArray = function (arg) {
+    Array.isArray = function(arg: any): arg is Array<any> {
         return Object.prototype.toString.call(arg) === '[object Array]';
     };
 }
+
 if (!Array.prototype.forEach) {
-    Array.prototype.forEach = function (callback) {
-        let array = this;
+    Array.prototype.forEach = function(callback: (item: any) => void) {
+        let array: any[] = this;
         let len = array.length;
         for (let i = 0; i < len; i++) {
             callback(array[i]);
         }
-    };
+  };
 }
+
 if (!Array.prototype.map) {
-    Array.prototype.map = function (callback) {
-        let array = this;
+    (Array.prototype as any).map = function(callback:  (value: any, index: number, array: any[]) => any) {
+        let array: any[] = this;
         let len = array.length;
         let result = new Array(len);
         for (let i = 0; i < len; i++) {
             result[i] = callback(array[i], i, array);
         }
         return result;
-    };
+  };
 }
+
 if (!Array.prototype.filter) {
-    Array.prototype.filter = function (callback) {
-        let array = this;
+    (Array.prototype as any).filter = function(callback: (value: any, index: number, array: any[]) => any) {
+        let array: any[] = this;
         let len = array.length;
         let result = [];
         for (let i = 0; i < len; i++) {
@@ -49,19 +54,19 @@ if (!Array.prototype.filter) {
             }
         }
         return result;
-    };
+  };
 }
+
 if (!Array.prototype.reduce) {
-    Array.prototype.reduce = function (callback, initialValue) {
-        let array = this;
+    (Array.prototype as any).reduce = function(callback: (previousValue: any, currentValue: any, currentIndex: number, array: any[]) => any, initialValue: any): any {
+        let array: any[] = this;
         let len = array.length;
         let start = 0;
         if (arguments.length < 2) {
             if (array.length > 0) {
                 initialValue = array[0];
                 start = 1;
-            }
-            else {
+            } else {
                 return null;
             }
         }
