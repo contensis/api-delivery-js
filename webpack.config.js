@@ -1,5 +1,8 @@
 var webpack = require("webpack");
 var path = require('path');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+
+
 var rootDir = path.resolve(__dirname);
 
 
@@ -48,6 +51,10 @@ module.exports = {
             mangle: {
                 keep_fnames: true
             }
-        })
+        }),
+		new CopyWebpackPlugin([            
+            { from: 'node_modules/whatwg-fetch/fetch.js', to: '' },
+			{ from: 'node_modules/es6-promise/dist/es6-promise.min.js', to: '' }
+        ])
     ]
 };

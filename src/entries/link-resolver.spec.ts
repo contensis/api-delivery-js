@@ -26,7 +26,7 @@ describe('Link Resolver', function () {
 								{ field: 'sys.language', equalTo: language },
 								{ field: 'sys.versionStatus', equalTo: 'published' }
 							]
-						}
+						};
 					})
 				}]
 			})
@@ -130,7 +130,7 @@ describe('Link Resolver', function () {
 		let testEntries: any = {
 			pageIndex: 99,
 			pageSize: 10,
-			totalCount: 1000,			
+			totalCount: 1000,
 			items: [
 				{ entry: { sys: { id: 100, language: 'en-GB' } } },
 				{ entry: { sys: { id: 101, language: 'en-GB' } } },
@@ -170,5 +170,4 @@ describe('Link Resolver', function () {
 		);
 
 	});
-	
 });
