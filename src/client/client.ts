@@ -1,7 +1,8 @@
-import { Config, ClientParams, ContensisClient, IHttpClient, IEntryOperations, IContentTypeOperations, IProjectOperations } from '../interfaces';
+import { Config, ClientParams, ContensisClient, IHttpClient, IEntryOperations, IContentTypeOperations, IProjectOperations, ITaxonomyOperations } from '../interfaces';
 import { EntryOperations } from '../entries/entry-operations';
 import { ContentTypeOperations } from '../content-types/content-type-operations';
 import { ProjectOperations } from '../projects/project-operations';
+import { TaxonomyOperations } from '../taxonomy/taxonomy-operations';
 import { ClientConfig } from './client-config';
 import { HttpClient } from '../http/http-client';
 
@@ -12,6 +13,7 @@ export class Client implements ContensisClient {
 	entries: IEntryOperations;
 	contentTypes: IContentTypeOperations;
 	project: IProjectOperations;
+	taxonomy: ITaxonomyOperations;
 
 	private httpClient: IHttpClient;
 
@@ -30,6 +32,7 @@ export class Client implements ContensisClient {
 		this.entries = new EntryOperations(this.httpClient, this);
 		this.project = new ProjectOperations(this.httpClient, this);
 		this.contentTypes = new ContentTypeOperations(this.httpClient, this);
+		this.taxonomy = new TaxonomyOperations(this.httpClient, this);
 	}
 
 	public getParams(): ClientParams {
