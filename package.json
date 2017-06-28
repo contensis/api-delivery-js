@@ -10,7 +10,8 @@
 		"lint": "./node_modules/.bin/tslint \"src/**/*.ts",
 		"build:es5": "./node_modules/.bin/tsc -p src",
 		"build:esnext": "./node_modules/.bin/tsc -p src/tsconfig-esnext.json",
-		"build:contensis": "rimraf bundle/* && webpack --progress --colors && node build/create-contensis-dts.js && rimraf bundle/es5"
+		"build:contensis": "rimraf bundle/* && webpack --progress --colors && node build/create-contensis-dts.js && rimraf bundle/es5",
+		"build:npm": "./node_modules/.bin/tsc -p src/tsconfig-npm.json"
 	},
 	"repository": {
 		"type": "git",
