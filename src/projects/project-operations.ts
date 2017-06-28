@@ -1,5 +1,5 @@
-import {IHttpClient, IProjectOperations, IParamsProvider, Project} from './interfaces';
-import { UrlBuilder } from './url-builder';
+import {IHttpClient, IProjectOperations, IParamsProvider, Project} from '../interfaces';
+import { UrlBuilder } from '../http/url-builder';
 
 export class ProjectOperations implements IProjectOperations {
     constructor(private httpClient: IHttpClient, private paramsProvider: IParamsProvider) {

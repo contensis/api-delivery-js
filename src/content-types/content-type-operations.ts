@@ -1,5 +1,5 @@
-import {IHttpClient, IContentTypeOperations, IParamsProvider, ContentType} from './interfaces';
-import { UrlBuilder } from './url-builder';
+import {IHttpClient, IContentTypeOperations, IParamsProvider, ContentType} from '../interfaces';
+import { UrlBuilder } from '../http/url-builder';
 
 export class ContentTypeOperations implements IContentTypeOperations {
     constructor(private httpClient: IHttpClient, private paramsProvider: IParamsProvider) {

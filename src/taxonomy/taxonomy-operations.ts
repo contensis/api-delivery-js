@@ -1,5 +1,5 @@
-import { IHttpClient, ITaxonomyOperations, IParamsProvider, TaxonomyNode, TaxonomyGetNodeByKeyOptions, TaxonomyGetNodeByPathOptions, TaxonomyResolveChildrenOptions } from './interfaces';
-import { UrlBuilder } from './url-builder';
+import { IHttpClient, ITaxonomyOperations, IParamsProvider, TaxonomyNode, TaxonomyGetNodeByKeyOptions, TaxonomyGetNodeByPathOptions, TaxonomyResolveChildrenOptions } from '../interfaces';
+import { UrlBuilder } from '../http/url-builder';
 
 let taxonomyMappers = {
 	order: (value) => (value === 'alphabetical') ? value : null

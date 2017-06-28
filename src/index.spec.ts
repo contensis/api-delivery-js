@@ -1,8 +1,8 @@
-import './client.spec';
-import './content-type-operations.spec';
-import './entry-operations.spec';
-import './link-resolver.spec';
-import './project-operations.spec';
-import './taxonomy-operations.spec';
-import './query.spec';
-import './url-builder.spec';
+import './client/client.spec';
+import './content-types/content-type-operations.spec';
+import './entries/entry-operations.spec';
+import './entries/link-resolver.spec';
+import './projects/project-operations.spec';
+import './taxonomy/taxonomy-operations.spec';
+import './entries/query.spec';
+import './http/url-builder.spec';

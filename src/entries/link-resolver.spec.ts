@@ -1,4 +1,4 @@
-import * as Contensis from './index';
+import * as Contensis from '../index';
 
 const Zengenti = { Contensis };
 

@@ -1,4 +1,4 @@
-import {Config, ClientParams} from './interfaces';
+import {Config, ClientParams} from '../interfaces';
 
 
 export class ClientConfig implements Config {

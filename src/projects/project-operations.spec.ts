@@ -1,4 +1,4 @@
-import * as Contensis from './index';
+import * as Contensis from '../index';
 
 const Zengenti = { Contensis };
 
@@ -37,5 +37,9 @@ describe('Project Operations', function () {
 				'accessToken': 'XXXXXX'
 			}
 		}));
+	});
+
+	it('asdfasdf', () => {
+		expect(true).toBe(true);
 	});
 });

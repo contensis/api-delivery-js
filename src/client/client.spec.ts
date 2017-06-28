@@ -1,4 +1,4 @@
-import * as Contensis from './index';
+import * as Contensis from '../index';
 import { ClientConfig } from './client-config';
 
 const Zengenti = { Contensis };

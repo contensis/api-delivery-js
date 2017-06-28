@@ -3,3 +3,4 @@ bundle/
 bundle-test/
 coverage/
 es5/
+npm-debug.log

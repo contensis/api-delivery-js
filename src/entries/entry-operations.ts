@@ -1,7 +1,7 @@
-import { IHttpClient, IParamsProvider, PagedList, Entry, IEntryOperations, EntryListOptions, EntryGetOptions, ClientParams } from './interfaces';
+import { IHttpClient, IParamsProvider, PagedList, Entry, IEntryOperations, EntryListOptions, EntryGetOptions, ClientParams } from '../interfaces';
 import { LinkResolver } from './link-resolver';
-import { UrlBuilder } from './url-builder';
-import './polyfills';
+import { UrlBuilder } from '../http/url-builder';
+import '../polyfills';
 
 let getMappers = {
 	versionStatus: (value: string) => (value === 'published') ? null : value
@@ -22,6 +22,7 @@ let listMappers = {
 let searchMappers = {
 	linkDepth: (value: number) => (value && (value > 0)) ? value : null
 };
+
 
 export class EntryOperations implements IEntryOperations {
 	constructor(private httpClient: IHttpClient, private paramsProvider: IParamsProvider) {

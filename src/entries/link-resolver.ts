@@ -1,4 +1,4 @@
-import { PagedList, Entry, IExpression, VersionStatus } from './interfaces';
+import { PagedList, Entry, IExpression, VersionStatus } from '../interfaces';
 import { Query, Op } from './query';
 
 interface ResolvedEntry {

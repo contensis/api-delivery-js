@@ -1,5 +1,5 @@
-import './polyfills';
-import { ClientParams } from './interfaces';
+import '../polyfills';
+import { ClientParams } from '../interfaces';
 
 function hasProp(o: any, key: string) {
 	return !!o && typeof o[key] !== 'undefined';

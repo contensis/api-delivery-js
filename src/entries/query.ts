@@ -1,5 +1,5 @@
-import { ExpressionValueType, OperatorType, IExpression, ContensisQuery, ContensisQueryOperators, ILogicalExpression, ContensisQueryOrderBy, ContensisQueryOrderByDto } from './interfaces';
-import './polyfills';
+import { ExpressionValueType, OperatorType, IExpression, ContensisQuery, ContensisQueryOperators, ILogicalExpression, ContensisQueryOrderBy, ContensisQueryOrderByDto } from '../interfaces';
+import '../polyfills';
 
 const ExpressionValueTypeEnum = {
     Single: 'single' as ExpressionValueType,

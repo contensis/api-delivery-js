@@ -1,10 +1,10 @@
-import { Config, ClientParams, ContensisClient, IHttpClient, IEntryOperations, IContentTypeOperations, IProjectOperations, ITaxonomyOperations } from './interfaces';
-import { EntryOperations } from './entry-operations';
-import { ContentTypeOperations } from './content-type-operations';
-import { ProjectOperations } from './project-operations';
-import { TaxonomyOperations } from './taxonomy-operations';
+import { Config, ClientParams, ContensisClient, IHttpClient, IEntryOperations, IContentTypeOperations, IProjectOperations, ITaxonomyOperations } from '../interfaces';
+import { EntryOperations } from '../entries/entry-operations';
+import { ContentTypeOperations } from '../content-types/content-type-operations';
+import { ProjectOperations } from '../projects/project-operations';
+import { TaxonomyOperations } from '../taxonomy/taxonomy-operations';
 import { ClientConfig } from './client-config';
-import { HttpClient } from './http-client';
+import { HttpClient } from '../http/http-client';
 
 export class Client implements ContensisClient {
 	static defaultClientConfig: ClientConfig = null;
