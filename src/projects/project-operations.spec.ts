@@ -38,8 +38,4 @@ describe('Project Operations', function () {
 			}
 		}));
 	});
-
-	it('asdfasdf', () => {
-		expect(true).toBe(true);
-	});
 });
