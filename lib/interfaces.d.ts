@@ -104,6 +104,13 @@ export interface Project {
     primaryLanguage: string;
     supportedLanguages: string[];
 }
+export interface TaxonomyNode {
+    key: string;
+    value: string;
+    path: string;
+    children?: TaxonomyNode[];
+    hasChildren: boolean;
+}
 export interface EntryGetOptions {
     id: string;
     language?: string;
@@ -116,6 +123,20 @@ export interface EntryListOptions {
     order?: string[];
     linkDepth?: number;
     fields?: string[];
+}
+export interface TaxonomyGetOptions {
+    order?: 'alphabetical' | 'defined';
+    childDepth?: number;
+    language?: string;
+}
+export interface TaxonomyGetNodeByKeyOptions extends TaxonomyGetOptions {
+    key: string;
+}
+export interface TaxonomyGetNodeByPathOptions extends TaxonomyGetOptions {
+    path: string;
+}
+export interface TaxonomyResolveChildrenOptions extends TaxonomyGetOptions {
+    node: string | TaxonomyNode;
 }
 export interface PageOptions {
     pageIndex?: number;
@@ -139,6 +160,11 @@ export interface IContentTypeOperations {
 export interface IProjectOperations {
     get(): Promise<Project>;
 }
+export interface ITaxonomyOperations {
+    getNodeByKey(key: string | TaxonomyGetNodeByKeyOptions): Promise<TaxonomyNode>;
+    getNodeByPath(path: string | TaxonomyGetNodeByPathOptions): Promise<TaxonomyNode>;
+    resolveChildren(node: string | TaxonomyNode | TaxonomyResolveChildrenOptions): Promise<TaxonomyNode>;
+}
 export interface IHttpClient {
     request<T>(url: string, request?: RequestInit): Promise<T>;
 }
@@ -149,6 +175,7 @@ export interface ContensisClient extends IParamsProvider {
     entries: IEntryOperations;
     contentTypes: IContentTypeOperations;
     project: IProjectOperations;
+    taxonomy: ITaxonomyOperations;
 }
 export declare type VersionStatus = 'published' | 'latest';
 export interface Config {
