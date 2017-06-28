@@ -4,11 +4,9 @@
   "description": "Contensis Javascript Delivery API",
   "main": "lib/index.js",
   "scripts": {
-    "test": "npm run test:clean && npm run test:pack && karma start",
-    "test:clean": "rimraf bundle-test/* && rimraf coverage/* && rimraf coverage-pre/*",
-    "test:watch": "npm run test:pack && concurrently \"karma start\" \"npm run test:packwatch\"",
-    "test:pack": "webpack --config webpack.test.config.js --progress --colors",
-    "test:packwatch": "webpack --config webpack.test.config.js --progress --colors --watch",
+    "pretest": "rimraf coverage/*",
+    "test": "karma start",
+    "test:watch": "npm run test -- --auto-watch --no-single-run",
     "tsc:es5": "./node_modules/.bin/tsc -p src",
     "tsc:esnext": "./node_modules/.bin/tsc -p src/tsconfig-esnext.json",
     "lint": "./node_modules/.bin/tslint \"src/**/*.ts",
@@ -26,6 +24,7 @@
   "homepage": "https://github.com/contensis/api-delivery-js#readme",
   "devDependencies": {
     "concurrently": "^3.5.0",
+    "istanbul-instrumenter-loader": "^2.0.0",
     "jasmine-core": "^2.6.4",
     "karma": "^1.7.0",
     "karma-chrome-launcher": "^2.2.0",
