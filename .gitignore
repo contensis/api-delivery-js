@@ -4,3 +4,4 @@ bundle-test/
 coverage/
 es5/
 npm-debug.log
+bundle-es2015/
