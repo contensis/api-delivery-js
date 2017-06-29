@@ -5,13 +5,14 @@
 	"main": "lib/index.js",
 	"scripts": {
 		"pretest": "rimraf coverage/*",
-		"test": "karma start",
+		"test": "npm run lint && karma start",
 		"test:watch": "npm run test -- --auto-watch --no-single-run",
 		"lint": "./node_modules/.bin/tslint \"src/**/*.ts",
 		"build:es5": "./node_modules/.bin/tsc -p src",
 		"build:esnext": "./node_modules/.bin/tsc -p src/tsconfig-esnext.json",
 		"build:contensis": "rimraf bundle/* && webpack --progress --colors && node build/create-contensis-dts.js && rimraf bundle/es5",
-		"build:npm": "./node_modules/.bin/tsc -p src/tsconfig-npm.json"
+		"build:npm": "./node_modules/.bin/tsc -p src/tsconfig-npm.json",
+		"all": "npm run build:esnext && npm run test && npm run build:npm && npm run build:contensis"
 	},
 	"repository": {
 		"type": "git",
