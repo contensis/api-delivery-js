@@ -106,7 +106,7 @@ export interface Project {
 }
 export interface TaxonomyNode {
     key: string;
-    value: string;
+    name: string;
     path: string;
     children?: TaxonomyNode[];
     hasChildren: boolean;

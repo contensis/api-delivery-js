@@ -176,7 +176,7 @@ describe('Taxonomy Operations', function () {
 			rootUrl: 'http://my-website.com/',
 			accessToken: 'XXXXXX'
 		});
-		client.taxonomy.resolveChildren({ key: '0/1', value: '', path: '', hasChildren: true });
+		client.taxonomy.resolveChildren({ key: '0/1', name: '', path: '', hasChildren: true });
 		expect(global.fetch).toHaveBeenCalled();
 		expect(global.fetch).toHaveBeenCalledWith('http://my-website.com/api/delivery/projects/myProject/taxonomy/nodes/0/1?childDepth=1&language=en-GB', Object({
 			method: 'GET',
@@ -193,7 +193,7 @@ describe('Taxonomy Operations', function () {
 			rootUrl: 'http://my-website.com/',
 			accessToken: 'XXXXXX'
 		});
-		client.taxonomy.resolveChildren({ key: '0/1', value: '', path: '', hasChildren: false });
+		client.taxonomy.resolveChildren({ key: '0/1', name: '', path: '', hasChildren: false });
 		expect(global.fetch).not.toHaveBeenCalled();
 	});
 
@@ -203,7 +203,7 @@ describe('Taxonomy Operations', function () {
 			rootUrl: 'http://my-website.com/',
 			accessToken: 'XXXXXX'
 		});
-		client.taxonomy.resolveChildren({ key: '0/1', value: '', path: '', hasChildren: true, children: [{ key: '', value: '', path: '', hasChildren: false}] });
+		client.taxonomy.resolveChildren({ key: '0/1', name: '', path: '', hasChildren: true, children: [{ key: '', name: '', path: '', hasChildren: false}] });
 		expect(global.fetch).not.toHaveBeenCalled();
 	});
 
@@ -213,7 +213,7 @@ describe('Taxonomy Operations', function () {
 			rootUrl: 'http://my-website.com/',
 			accessToken: 'XXXXXX'
 		});
-		client.taxonomy.resolveChildren({ key: '0/1', value: '', path: '', hasChildren: true });
+		client.taxonomy.resolveChildren({ key: '0/1', name: '', path: '', hasChildren: true });
 		expect(global.fetch).toHaveBeenCalled();
 		expect(global.fetch).toHaveBeenCalledWith('http://my-website.com/api/delivery/projects/myProject/taxonomy/nodes/0/1?childDepth=1&language=en-GB', Object({
 			method: 'GET',
@@ -248,7 +248,7 @@ describe('Taxonomy Operations', function () {
 			rootUrl: 'http://my-website.com/',
 			accessToken: 'XXXXXX'
 		});
-		client.taxonomy.resolveChildren({ node: { key: '0/1', value: '', path: '', hasChildren: true }, order: 'alphabetical', childDepth: 99, language: 'fr-FR' });
+		client.taxonomy.resolveChildren({ node: { key: '0/1', name: '', path: '', hasChildren: true }, order: 'alphabetical', childDepth: 99, language: 'fr-FR' });
 		expect(global.fetch).toHaveBeenCalled();
 		expect(global.fetch).toHaveBeenCalledWith('http://my-website.com/api/delivery/projects/myProject/taxonomy/nodes/0/1?childDepth=99&language=fr-FR&order=alphabetical', Object({
 			method: 'GET',
@@ -265,7 +265,7 @@ describe('Taxonomy Operations', function () {
 			rootUrl: 'http://my-website.com/',
 			accessToken: 'XXXXXX'
 		});
-		client.taxonomy.resolveChildren({ node: { key: '0/1', value: '', path: '', hasChildren: false }, order: 'alphabetical', childDepth: 99, language: 'fr-FR' });
+		client.taxonomy.resolveChildren({ node: { key: '0/1', name: '', path: '', hasChildren: false }, order: 'alphabetical', childDepth: 99, language: 'fr-FR' });
 		expect(global.fetch).not.toHaveBeenCalled();
 	});
 
@@ -275,7 +275,7 @@ describe('Taxonomy Operations', function () {
 			rootUrl: 'http://my-website.com/',
 			accessToken: 'XXXXXX'
 		});
-		client.taxonomy.resolveChildren({ node: { key: '0/1', value: '', path: '', hasChildren: true, children: [{ key: '', value: '', path: '', hasChildren: false}] }, order: 'alphabetical', childDepth: 99, language: 'fr-FR' });
+		client.taxonomy.resolveChildren({ node: { key: '0/1', name: '', path: '', hasChildren: true, children: [{ key: '', name: '', path: '', hasChildren: false}] }, order: 'alphabetical', childDepth: 99, language: 'fr-FR' });
 		expect(global.fetch).not.toHaveBeenCalled();
 	});
 
@@ -285,7 +285,7 @@ describe('Taxonomy Operations', function () {
 			rootUrl: 'http://my-website.com/',
 			accessToken: 'XXXXXX'
 		});
-		client.taxonomy.resolveChildren({ node: { key: '0/1', value: '', path: '', hasChildren: true }, order: 'alphabetical', childDepth: 99, language: 'fr-FR' });
+		client.taxonomy.resolveChildren({ node: { key: '0/1', name: '', path: '', hasChildren: true }, order: 'alphabetical', childDepth: 99, language: 'fr-FR' });
 		expect(global.fetch).toHaveBeenCalled();
 		expect(global.fetch).toHaveBeenCalledWith('http://my-website.com/api/delivery/projects/myProject/taxonomy/nodes/0/1?childDepth=99&language=fr-FR&order=alphabetical', Object({
 			method: 'GET',
