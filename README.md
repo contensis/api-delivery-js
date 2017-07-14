@@ -1,7 +1,7 @@
 # api-delivery-js
 Contensis JavaScript Delivery API implementation written in TypeScript.
 
-This allows the querying and retrieval of entries, content types and projects in javascript.
+This allows the querying and retrieval of entries, content types and projects in JavaScript.
 
 It can be used in any ES2015 compatible project.
 * Angular
