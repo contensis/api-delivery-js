@@ -1,5 +1,5 @@
 # api-delivery-js
-Contensis JavaScript Delivery API implementation written in ES2015.
+Contensis JavaScript Delivery API implementation written in TypeScript.
 
 This allows the querying and retrieval of entries, content types and projects in javascript.
 
