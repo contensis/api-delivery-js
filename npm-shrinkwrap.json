@@ -1,0 +1,26 @@
+{
+  "name": "api-delivery-js",
+  "version": "1.0.0",
+  "dependencies": {
+    "@types/jasmine": {
+      "version": "2.5.53",
+      "from": "@types/jasmine@>=2.5.53 <3.0.0",
+      "resolved": "https://registry.npmjs.org/@types/jasmine/-/jasmine-2.5.53.tgz"
+    },
+    "es6-promise": {
+      "version": "4.1.1",
+      "from": "es6-promise@>=4.1.0 <5.0.0",
+      "resolved": "https://registry.npmjs.org/es6-promise/-/es6-promise-4.1.1.tgz"
+    },
+    "tslib": {
+      "version": "1.7.1",
+      "from": "tslib@>=1.7.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/tslib/-/tslib-1.7.1.tgz"
+    },
+    "whatwg-fetch": {
+      "version": "2.0.3",
+      "from": "whatwg-fetch@>=2.0.3 <3.0.0",
+      "resolved": "https://registry.npmjs.org/whatwg-fetch/-/whatwg-fetch-2.0.3.tgz"
+    }
+  }
+}

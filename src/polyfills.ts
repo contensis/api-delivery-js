@@ -22,11 +22,11 @@ if (!Array.isArray) {
 }
 
 if (!Array.prototype.forEach) {
-    Array.prototype.forEach = function(callback: (item: any) => void) {
+    Array.prototype.forEach = function(callback: (item: any, index: number, array: any[]) => void) {
         let array: any[] = this;
         let len = array.length;
         for (let i = 0; i < len; i++) {
-            callback(array[i]);
+            callback(array[i], i, array);
         }
   };
 }
