@@ -11,8 +11,7 @@ module.exports = {
     devtool: 'source-map',
 
 	entry: {
-        'zengenti.contensis-client': './src/index.ts',
-		'zengenti.contensis-client.spec': './src/index.spec.ts'
+        'zengenti.contensis-client': './src/index.ts'
     },
 
     output: {
