@@ -31,11 +31,22 @@ export class TaxonomyOperations implements ITaxonomyOperations {
 	resolveChildren(node: string | TaxonomyNode | TaxonomyResolveChildrenOptions): Promise<TaxonomyNode> {
 		let resolveOptions = node as TaxonomyResolveChildrenOptions;
 
-		let taxonomyNodeOrKey: string | TaxonomyNode = (resolveOptions.node ? resolveOptions.node : node) as any;
+		let taxonomyNodeOrKey: string | TaxonomyNode = null;
+		let getNodeByKeyOptions: Partial<TaxonomyGetNodeByKeyOptions> = { childDepth: 1 };
 
-		let getNodeByKeyOptions: Partial<TaxonomyGetNodeByKeyOptions> = resolveOptions.node
-			? { childDepth: resolveOptions.childDepth || 1, order: resolveOptions.order, language: resolveOptions.language }
-			: { childDepth: 1 };
+		if (resolveOptions.node) {
+			taxonomyNodeOrKey = resolveOptions.node;
+			getNodeByKeyOptions = { childDepth: resolveOptions.childDepth || 1, order: resolveOptions.order, language: resolveOptions.language };
+		} else if (resolveOptions.key) {
+			if ((node as any).path) {
+				taxonomyNodeOrKey = node as TaxonomyNode;
+			} else {
+				taxonomyNodeOrKey = resolveOptions.key;
+				getNodeByKeyOptions = { childDepth: resolveOptions.childDepth || 1, order: resolveOptions.order, language: resolveOptions.language };
+			}
+		} else {
+			taxonomyNodeOrKey = node as string;
+		}
 
 		if (typeof taxonomyNodeOrKey === 'string') {
 			return this.getNodeByKey({ ...getNodeByKeyOptions, key: taxonomyNodeOrKey });

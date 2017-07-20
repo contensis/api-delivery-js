@@ -133,7 +133,8 @@ export interface TaxonomyGetNodeByPathOptions extends TaxonomyGetOptions {
 }
 
 export interface TaxonomyResolveChildrenOptions extends TaxonomyGetOptions {
-	node: string | TaxonomyNode;
+	key?: string;
+	node?: TaxonomyNode;
 }
 
 export interface PageOptions {
