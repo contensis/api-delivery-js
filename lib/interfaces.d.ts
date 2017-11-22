@@ -136,7 +136,8 @@ export interface TaxonomyGetNodeByPathOptions extends TaxonomyGetOptions {
     path: string;
 }
 export interface TaxonomyResolveChildrenOptions extends TaxonomyGetOptions {
-    node: string | TaxonomyNode;
+    key?: string;
+    node?: TaxonomyNode;
 }
 export interface PageOptions {
     pageIndex?: number;

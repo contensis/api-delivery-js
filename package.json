@@ -43,8 +43,8 @@
 		"ts-loader": "^2.2.0",
 		"tslint": "^5.4.3",
 		"tslint-stylish": "^2.1.0",
-		"typescript": "^2.3.4",
-		"webpack": "^3.0.0"
+		"typescript": "2.4.0",
+		"webpack": "3.6.0"
 	},
 	"dependencies": {
 		"@types/jasmine": "^2.5.53",
