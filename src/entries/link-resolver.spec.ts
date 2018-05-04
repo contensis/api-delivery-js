@@ -17,7 +17,6 @@ describe('Link Resolver', function () {
 			body: JSON.stringify({
 				pageIndex: 0,
 				pageSize: ids.length,
-				orderBy: [],
 				where: [{
 					or: ids.map(id => {
 						return {

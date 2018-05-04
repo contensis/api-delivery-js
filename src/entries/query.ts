@@ -354,6 +354,7 @@ export class Query implements ContensisQuery {
     orderBy: string | string[] | ContensisQueryOrderBy = [];
     pageIndex: number = 0;
     pageSize: number = 20;
+    fields: string[] = [];
 
     constructor(...whereExpressions: IExpression[]) {
         if (whereExpressions) {
@@ -365,8 +366,18 @@ export class Query implements ContensisQuery {
         let result: any = {};
         result.pageIndex = this.pageIndex;
         result.pageSize = this.pageSize;
-        result.orderBy = serializeOrder(this.orderBy);
+
+        let orderByDtos = serializeOrder(this.orderBy);
+        if (orderByDtos && orderByDtos.length > 0) {
+            result.orderBy = orderByDtos;
+        }
+
         result.where = this.where;
+
+        if (this.fields && this.fields.length > 0) {
+            result.fields = this.fields;
+        }
+
         return result;
     }
 }

@@ -99,7 +99,7 @@ describe('Entry Operations', function () {
 		}));
 	});
 
-	it('Get Live Version with options', () => {
+	it('Get Live Version with all options', () => {
 		let client = Zengenti.Contensis.Client.create({
 			projectId: 'myProject',
 			rootUrl: 'http://my-website.com/',
@@ -107,9 +107,28 @@ describe('Entry Operations', function () {
 			versionStatus: 'published',
 			accessToken: 'XXXXXX'
 		});
-		client.entries.get({ id: '1', language: 'de', linkDepth: 99 });
+		client.entries.get({ id: '1', language: 'de', linkDepth: 99, fields: ['title'] });
 		expect(global.fetch).toHaveBeenCalled();
-		expect(global.fetch).toHaveBeenCalledWith('http://my-website.com/api/delivery/projects/myProject/entries/1?language=de&linkDepth=99', Object({
+		expect(global.fetch).toHaveBeenCalledWith('http://my-website.com/api/delivery/projects/myProject/entries/1?fields=title&language=de&linkDepth=99', Object({
+			method: 'GET',
+			mode: 'cors',
+			headers: {
+				'accessToken': 'XXXXXX'
+			}
+		}));
+	});
+
+	it('Get Live Version with minimal options', () => {
+		let client = Zengenti.Contensis.Client.create({
+			projectId: 'myProject',
+			rootUrl: 'http://my-website.com/',
+			language: 'en-US',
+			versionStatus: 'published',
+			accessToken: 'XXXXXX'
+		});
+		client.entries.get({ id: '1', language: '', linkDepth: 0, fields: [] });
+		expect(global.fetch).toHaveBeenCalled();
+		expect(global.fetch).toHaveBeenCalledWith('http://my-website.com/api/delivery/projects/myProject/entries/1', Object({
 			method: 'GET',
 			mode: 'cors',
 			headers: {
@@ -195,6 +214,50 @@ describe('Entry Operations', function () {
 		expect(global.fetch).toHaveBeenCalled();
 		expect(global.fetch).toHaveBeenCalledWith(
 			'http://my-website.com/api/delivery/projects/myProject/contentTypes/cheese/entries?language=fr-FR&pageIndex=0&pageSize=25',
+			Object({
+				method: 'GET',
+				mode: 'cors',
+				headers: {
+					'accessToken': 'XXXXXX'
+				}
+			}));
+
+	});
+
+	it('List with all options', () => {
+		let client = Zengenti.Contensis.Client.create({
+			projectId: 'myProject',
+			rootUrl: 'http://my-website.com/',
+			language: 'en-US',
+			versionStatus: 'published',
+			accessToken: 'XXXXXX'
+		});
+		client.entries.list({ contentTypeId: 'cheese', pageOptions: { pageIndex: 5, pageSize: 100 }, language: 'en-GB', linkDepth: 1, order: ['title'], fields: ['title'] });
+		expect(global.fetch).toHaveBeenCalled();
+		expect(global.fetch).toHaveBeenCalledWith(
+			'http://my-website.com/api/delivery/projects/myProject/contentTypes/cheese/entries?fields=title&language=en-GB&linkDepth=1&order=title&pageIndex=5&pageSize=100',
+			Object({
+				method: 'GET',
+				mode: 'cors',
+				headers: {
+					'accessToken': 'XXXXXX'
+				}
+			}));
+
+	});
+
+	it('List with minimal options', () => {
+		let client = Zengenti.Contensis.Client.create({
+			projectId: 'myProject',
+			rootUrl: 'http://my-website.com/',
+			language: 'en-US',
+			versionStatus: 'published',
+			accessToken: 'XXXXXX'
+		});
+		client.entries.list({ contentTypeId: '', linkDepth: 0, language: '', order: [], fields: [], pageOptions: {} });
+		expect(global.fetch).toHaveBeenCalled();
+		expect(global.fetch).toHaveBeenCalledWith(
+			'http://my-website.com/api/delivery/projects/myProject/entries?pageIndex=0&pageSize=25',
 			Object({
 				method: 'GET',
 				mode: 'cors',
@@ -437,6 +500,128 @@ describe('Entry Operations', function () {
 						startsWith: 'W'
 					}]
 				})
+			}));
+
+	});
+
+	it('Do Search via the Client API with all options', () => {
+		let client = Zengenti.Contensis.Client.create({
+			projectId: 'myProject',
+			rootUrl: 'http://my-website.com/',
+			language: 'en-US',
+			versionStatus: 'published',
+			accessToken: 'XXXXXX'
+		});
+		client.entries.search({
+			pageIndex: 1,
+			pageSize: 50,
+			orderBy: [{
+				asc: 'authorName'
+			}],
+			where: [{
+				field: 'authorName',
+				startsWith: 'W'
+			}],
+			fields: ['title']
+		}, 99);
+		expect(global.fetch).toHaveBeenCalled();
+
+
+		expect(global.fetch).toHaveBeenCalledWith(
+			'http://my-website.com/api/delivery/projects/myProject/entries/search?linkDepth=99',
+			Object({
+				method: 'POST',
+				mode: 'cors',
+				headers: {
+					'accessToken': 'XXXXXX',
+					'Content-Type': 'application/json; charset=utf-8'
+				},
+				body: JSON.stringify({
+					pageIndex: 1,
+					pageSize: 50,
+					orderBy: [{
+						asc: 'authorName'
+					}],
+					where: [{
+						field: 'authorName',
+						startsWith: 'W'
+					}],
+					fields: ['title']
+				})
+			}));
+	});
+
+	it('Do Search via the Client API using the default Query instance', () => {
+		let client = Zengenti.Contensis.Client.create({
+			projectId: 'myProject',
+			rootUrl: 'http://my-website.com/',
+			language: 'en-US',
+			versionStatus: 'published',
+			accessToken: 'XXXXXX'
+		});
+
+		let query = new Contensis.Query();
+		client.entries.search(query);
+
+		expect(global.fetch).toHaveBeenCalled();
+
+		expect(global.fetch).toHaveBeenCalledWith(
+			'http://my-website.com/api/delivery/projects/myProject/entries/search',
+			Object({
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json; charset=utf-8',
+					'accessToken': 'XXXXXX',
+				},
+				body: JSON.stringify({
+					pageIndex: 0,
+					pageSize: 20,
+					where: []
+				}),
+				mode: 'cors'
+			}));
+
+	});
+
+	it('Do Search via the Client API using a Query instance', () => {
+		let client = Zengenti.Contensis.Client.create({
+			projectId: 'myProject',
+			rootUrl: 'http://my-website.com/',
+			language: 'en-US',
+			versionStatus: 'published',
+			accessToken: 'XXXXXX'
+		});
+
+		let query = new Contensis.Query(Contensis.Op.startsWith('authorName', 'W'));
+		query.orderBy = Contensis.OrderBy.asc('authorName');
+		query.fields = ['title'];
+		query.pageIndex = 1;
+		query.pageSize = 50;
+		client.entries.search(query, 99);
+
+		expect(global.fetch).toHaveBeenCalled();
+
+		expect(global.fetch).toHaveBeenCalledWith(
+			'http://my-website.com/api/delivery/projects/myProject/entries/search?linkDepth=99',
+			Object({
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json; charset=utf-8',
+					'accessToken': 'XXXXXX',
+				},
+				body: JSON.stringify({
+					pageIndex: 1,
+					pageSize: 50,
+					orderBy: [{
+						asc: 'authorName'
+					}],
+					where: [{
+						field: 'authorName',
+						startsWith: 'W'
+					}],
+					fields: ['title']
+				}),
+				mode: 'cors'
 			}));
 
 	});

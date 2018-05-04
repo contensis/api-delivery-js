@@ -4,19 +4,24 @@ import { UrlBuilder } from '../http/url-builder';
 import '../polyfills';
 
 let getMappers = {
+	fields: (value: string[]) => (value && value.length > 0) ? value : null,
+	linkDepth: (value: number) => (value && (value > 0)) ? value : null,
 	versionStatus: (value: string) => (value === 'published') ? null : value
 };
 
 let listUrl = (options: EntryListOptions, params: ClientParams) => {
 	return !!options.contentTypeId
-		     ? `/api/delivery/projects/:projectId/contentTypes/:contentTypeId/entries`
-		     : `/api/delivery/projects/:projectId/entries`;
+		? `/api/delivery/projects/:projectId/contentTypes/:contentTypeId/entries`
+		: `/api/delivery/projects/:projectId/entries`;
 };
 
 let listMappers = {
-	versionStatus: (value: string) => (value === 'published') ? null : value,
+	fields: (value: string[]) => (value && value.length > 0) ? value : null,
+	linkDepth: (value: number) => (value && (value > 0)) ? value : null,
+	order: (value: string[]) => (value && value.length > 0) ? value : null,
 	pageIndex: (value: number, options: EntryListOptions, params: ClientParams) => (options && options.pageOptions && options.pageOptions.pageIndex) || (params.pageIndex),
-	pageSize: (value: number, options: EntryListOptions, params: ClientParams) => (options && options.pageOptions && options.pageOptions.pageSize) || (params.pageSize)
+	pageSize: (value: number, options: EntryListOptions, params: ClientParams) => (options && options.pageOptions && options.pageOptions.pageSize) || (params.pageSize),
+	versionStatus: (value: string) => (value === 'published') ? null : value
 };
 
 let searchMappers = {
@@ -30,7 +35,7 @@ export class EntryOperations implements IEntryOperations {
 	}
 
 	get(idOrOptions: string | EntryGetOptions): Promise<Entry> {
-		let url = UrlBuilder.create('/api/delivery/projects/:projectId/entries/:id', { language: null, versionStatus: null, linkDepth: null })
+		let url = UrlBuilder.create('/api/delivery/projects/:projectId/entries/:id', { language: null, versionStatus: null, linkDepth: null, fields: null })
 			.setOptions(idOrOptions, 'id')
 			.setParams(this.paramsProvider.getParams())
 			.addMappers(getMappers)
