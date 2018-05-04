@@ -115,6 +115,7 @@ export interface EntryGetOptions {
     id: string;
     language?: string;
     linkDepth?: number;
+    fields?: string[];
 }
 export interface EntryListOptions {
     contentTypeId?: string;

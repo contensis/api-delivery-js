@@ -1,9 +1,9 @@
 {
 	"name": "api-delivery-js",
-	"version": "11.0.0",
+	"version": "11.1.0",
 	"description": "Contensis Javascript Delivery API",
 	"engines": {
-		"node": ">=4"
+		"node": ">=6"
 	},
 	"main": "lib/index.js",
 	"scripts": {
