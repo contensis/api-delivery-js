@@ -53,6 +53,7 @@ export declare class Query implements ContensisQuery {
     orderBy: string | string[] | ContensisQueryOrderBy;
     pageIndex: number;
     pageSize: number;
+    fields: string[];
     constructor(...whereExpressions: IExpression[]);
     toJSON(): any;
 }

@@ -210,6 +210,7 @@ export interface ContensisQuery {
     orderBy: string | string[] | ContensisQueryOrderBy;
     pageIndex: number;
     pageSize: number;
+    fields: string[];
 }
 export interface ContensisQueryFactory {
     new (...whereExpressions: IExpression[]): ContensisQuery;
