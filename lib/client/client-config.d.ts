@@ -10,5 +10,5 @@ export declare class ClientConfig implements Config {
     pageSize: number;
     constructor(currentConfig: Config, previousConfig: Config);
     toParams(): ClientParams;
-    private getValue<T>(getter);
+    private getValue;
 }
