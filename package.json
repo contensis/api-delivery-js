@@ -5,7 +5,8 @@
 	"engines": {
 		"node": ">=8"
 	},
-	"main": "lib/index.js",
+	"main": "./lib/index.js",
+	"types": "./lib/index.d.ts",
 	"scripts": {
 		"pretest": "rimraf coverage/*",
 		"test": "npm run lint && karma start",
