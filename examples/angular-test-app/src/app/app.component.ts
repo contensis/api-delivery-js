@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Client } from 'api-delivery-js';
+import { Client } from 'zengenti-contensis-delivery';
 
 @Component({
   selector: 'app-root',

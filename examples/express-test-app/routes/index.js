@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-var Client = require('api-delivery-js').Client;
-var Query = require('api-delivery-js').Query;
+var Client = require('zengenti-contensis-delivery').Client;
+
 global.fetch = require("node-fetch");
 
 /* GET home page. */
