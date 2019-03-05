@@ -1,6 +1,6 @@
 # DEPRECATED !!! 
-> This project was replaced by [contensis-delivery-api](https://github.com/contensis/contensis-delivery-api).
-> You can still use it with all versions of Contensis 11.3 and below. The repo *contensis-delivery-api* also supports Contensis 11.3 and > all the version after 11.3.
+> This project was replaced by [contensis-delivery-api](https://github.com/contensis/contensis-delivery-api).  
+> You can still use it with all versions of Contensis 11.3 and below. The repo *contensis-delivery-api* also supports Contensis 11.3 and all the versions after 11.3.
 ---
 
 # api-delivery-js
