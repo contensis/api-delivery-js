@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
-        "target": "es2017",
-        "module": "commonjs",
-        "lib": ["es2017", "dom", "dom.iterable", "scripthost"],
+        "target": "esNext",
+        "module": "es2015",
+        "lib": [ "es2015", "es2017", "dom", "es2015.iterable" ],
         "skipLibCheck": true,
         "moduleResolution": "node",
         "sourceMap": false,
@@ -13,7 +13,7 @@
         "suppressImplicitAnyIndexErrors": true,
         "allowSyntheticDefaultImports": true,
         "importHelpers": true,
-        "outDir": "../lib",
-        "declaration": true
+		"outDir": "../lib",
+		"declaration": true
     }
 }
