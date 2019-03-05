@@ -1,29 +1,26 @@
-# zengenti-contensis-delivery
+# api-delivery-js
 Contensis JavaScript Delivery API implementation written in TypeScript.
 
 This allows the querying and retrieval of entries, content types and projects in JavaScript.
 
-It can be used in any ES5 compatible project.
+It can be used in any ES2015 compatible project.
 * Angular
 * React
 * React Native
 * NativeScript
-* Express
-
-The examples folder contains Express, React and Angular test applications.
 
 ## Installation
 
 The Contensis JavaScript Delivery API can be installed using npm.
 
-**npm install zengenti-contensis-delivery**
+**npm install -save contensis/api-delivery-js**
 
 ## Examples
 
 Using ES2015 async/await
 
 ```js
-import { Client } from 'zengenti-contensis-delivery';
+import { Client } from 'api-delivery-js';
 
 let contensisConfig = { 
 	rootUrl: 'https://my-cms.com',
@@ -49,7 +46,7 @@ loadMovies();
 
 Using Promises
 ```js
-import { Client } from 'zengenti-contensis-delivery';
+import { Client } from 'api-delivery-js';
 
 let contensisConfig = { 
 	rootUrl: 'https://my-cms.com',
