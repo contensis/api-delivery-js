@@ -44,6 +44,7 @@
 		"tslint": "^5.4.3",
 		"tslint-stylish": "^2.1.0",
 		"typescript": "2.4.0",
+		"uglify-js": "^3.6.0",
 		"webpack": "3.6.0"
 	},
 	"dependencies": {
